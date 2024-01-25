@@ -1,48 +1,46 @@
-const fs = require("fs");
-const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
-const [N, ...input] = fs
-  .readFileSync(filePath)
-  .toString()
-  .split("\n")
-  .map((v) => v.split(" ").map(Number));
+function solution(s) {
+  let answer = Number.MIN_SAFE_INTEGER;
 
-let answer = "";
-const stack = [];
-for (let i = 0; i < input.length; i++) {
-  const [order, X] = input[i];
-  if (order === 1) {
-    stack.push(X);
-    continue;
+  if (s.length === 1) {
+    return 1;
   }
-  if (order === 2) {
-    if (stack.length > 0) {
-      const top = stack.pop();
-      answer += top + "\n";
-    } else {
-      answer += -1 + "\n";
+
+  if (s.length === 2 && s[0] === s[1]) {
+    return 2;
+  }
+  const arr = Array.from({ length: s.length + 1 }, (_, i) => i);
+  const comb = [];
+  const visit = Array(s.length).fill(false);
+  const dfs = (depth, start, path) => {
+    if (depth === 2) {
+      comb.push(path);
+      return;
     }
-    continue;
-  }
-  if (order === 3) {
-    const len = stack.length;
-    answer += len + "\n";
-    continue;
-  }
-  if (order === 4) {
-    if (stack.length === 0) {
-      answer += 1 + "\n";
-    } else {
-      answer += 0 + "\n";
+    for (let i = start; i < arr.length; i++) {
+      if (!visit[i]) {
+        visit[i] = true;
+        dfs(depth + 1, i + 1, path + String(arr[i]));
+        visit[i] = false;
+      }
     }
-    continue;
-  }
-  if (order === 5) {
-    if (stack.length > 0) {
-      answer += stack[stack.length - 1] + "\n";
-    } else {
-      answer += -1 + "\n";
+  };
+  dfs(0, 0, "");
+
+  const subString = comb.map((v) => {
+    const [from, to] = v.split("");
+    const string = s.slice(from, to);
+    return string;
+  });
+
+  subString.forEach((v) => {
+    const reverse = v.split("").reverse().join("");
+    if (v === reverse) {
+      answer = Math.max(answer, v.length);
     }
-  }
+  });
+
+  return answer;
 }
 
-console.log(answer.slice(0, -1));
+const rusult = solution("abcddcbe");
+console.log(rusult);
