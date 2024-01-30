@@ -15,5 +15,5 @@ function subset(arr) {
   return answer;
 }
 
-const answer = solution([1, 2, 3]);
+const answer = subset([1, 2, 3]);
 console.log(answer);
