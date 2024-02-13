@@ -1,13 +1,13 @@
 function solution(arr) {
   const answer = [];
-  function dfs(l, temp = []) {
-    if (l === arr.length) {
+  function dfs(depth, temp = []) {
+    if (depth === arr.length) {
       answer.push(temp);
       return;
     }
 
     for (let i = 0; i < arr.length; i++) {
-      dfs(l + 1, [...temp, arr[i]]);
+      dfs(depth + 1, [...temp, arr[i]]);
     }
   }
   dfs(0);

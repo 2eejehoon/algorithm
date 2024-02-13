@@ -2,8 +2,8 @@ function solution(arr) {
   const answer = [];
   const visit = Array(arr.length).fill(false);
   const dfs = (depth, path) => {
-    answer.push(path);
     if (depth === arr.length) {
+      answer.push(path);
       return;
     }
 
