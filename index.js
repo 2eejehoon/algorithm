@@ -1,28 +1,26 @@
 const fs = require("fs");
 const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
-const [N, ...arr] = fs.readFileSync(filePath).toString().trim().split("\n").map(Number);
+const [m, n] = fs.readFileSync(filePath).toString().trim().split(" ").map(Number);
 
-function isPrime(n) {
-  if (n < 2) {
-    return false;
-  }
+function getPrimes(m, n) {
+  const obj = { 1: true };
   for (let i = 2; i <= Math.sqrt(n); i++) {
-    if (n % i === 0) return false;
-  }
-  return true;
-}
-
-const answer = [];
-for (let x of arr) {
-  while (true) {
-    const result = isPrime(x);
-    if (result) {
-      answer.push(x);
-      break;
-    } else {
-      x++;
+    if (obj[i]) {
+      continue;
+    }
+    for (let j = i ** 2; j <= n; j += i) {
+      obj[j] = true;
     }
   }
-}
 
+  const primes = [];
+  for (let i = m; i <= n; i++) {
+    if (!obj[i]) {
+      primes.push(i);
+    }
+  }
+
+  return primes;
+}
+const answer = getPrimes(m, n);
 console.log(answer.join("\n"));
