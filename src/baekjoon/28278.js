@@ -38,7 +38,7 @@ for (let i = 0; i < input.length; i++) {
   }
   if (order === 5) {
     if (stack.length > 0) {
-      answer += swtack[stack.length - 1] + "\n";
+      answer += stack[stack.length - 1] + "\n";
     } else {
       answer += -1 + "\n";
     }
