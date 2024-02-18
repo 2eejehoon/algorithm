@@ -31,8 +31,8 @@ class DoublyLinkedList {
     const node = new Node(data);
 
     if (this.tail === null) {
-      this.head = node;
       this.tail = node;
+      this.head = node;
     } else {
       node.prev = this.tail;
       this.tail.next = node;
@@ -49,6 +49,7 @@ class DoublyLinkedList {
     const head = this.head;
     if (this.length === 1) {
       this.head = null;
+      this.tail = null;
       this.length--;
     } else {
       this.head = this.head.next;
@@ -156,5 +157,3 @@ class DoublyLinkedList {
     console.log(list);
   }
 }
-
-module.exports = DoublyLinkedList;
