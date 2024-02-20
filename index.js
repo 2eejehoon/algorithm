@@ -1,10 +1,11 @@
 const fs = require("fs");
 const filePath = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
-const [n, ...input] = fs.readFileSync(filePath).toString().trim().split("\n");
+const [n, input] = fs.readFileSync(filePath).toString().trim().split("\n");
 
 class Node {
-  constructor(value) {
+  constructor(value, index) {
     this.value = value;
+    this.index = index;
     this.prev = null;
     this.next = null;
   }
@@ -17,8 +18,8 @@ class Deque {
     this.length = 0;
   }
 
-  unshift(value) {
-    const node = new Node(value);
+  unshift(value, index) {
+    const node = new Node(value, index);
     if (this.length === 0) {
       this.head = node;
       this.tail = node;
@@ -31,8 +32,8 @@ class Deque {
     this.length++;
   }
 
-  push(value) {
-    const node = new Node(value);
+  push(value, index) {
+    const node = new Node(value, index);
     if (this.length === 0) {
       this.tail = node;
       this.head = node;
@@ -70,67 +71,56 @@ class Deque {
     this.length--;
     return tail;
   }
+
+  left(value) {
+    if (this.length === 0) {
+      return;
+    }
+    let temp = value;
+    while (temp > 0) {}
+    const head = this.shift();
+    this.push(head);
+    temp--;
+  }
+
+  right(value) {
+    if (this.length === 0) {
+      return;
+    }
+    let temp = value;
+    while (temp > 0) {}
+    const tail = this.pop();
+    this.unshift(tail);
+    temp--;
+  }
+
+  print() {
+    const arr = [];
+    let current = this.head;
+    while (current) {
+      arr.push({ value: current.value, index: current.index });
+      current = current.next;
+    }
+    console.log(arr);
+  }
 }
 
 const deque = new Deque();
-const arr = input.map((v) => v.split(" "));
+const arr = input.split(" ").map(Number);
+arr.forEach((v, i) => {
+  deque.push(v, i + 1);
+});
 const answer = [];
 
-arr.forEach((v) => {
-  const [commnad, X] = v;
-  switch (commnad) {
-    case "1":
-      deque.unshift(X);
-      break;
+while (deque.length > 0) {
+  const { value, index } = deque.shift();
+  answer.push(index);
 
-    case "2":
-      deque.push(X);
-      break;
-
-    case "3":
-      if (deque.length > 0) {
-        const head = deque.shift();
-        answer.push(head.value);
-      } else {
-        answer.push(-1);
-      }
-      break;
-
-    case "4":
-      if (deque.length > 0) {
-        const tail = deque.pop();
-        answer.push(tail.value);
-      } else {
-        answer.push(-1);
-      }
-      break;
-
-    case "5":
-      answer.push(deque.length);
-      break;
-
-    case "6":
-      answer.push(deque.length === 0 ? 1 : 0);
-      break;
-
-    case "7":
-      if (deque.length > 0) {
-        answer.push(deque.head.value);
-      } else {
-        answer.push(-1);
-      }
-      break;
-
-    case "8":
-      if (deque.length > 0) {
-        answer.push(deque.tail.value);
-      } else {
-        answer.push(-1);
-      }
-      break;
-
-    default:
-      break;
+  if (value > 0) {
+    deque.left(value - 1);
+  } else {
+    deque.right(-value - 1);
   }
-});
-console.log(answer.join("\n"));
+}
+
+console.log(answer);
