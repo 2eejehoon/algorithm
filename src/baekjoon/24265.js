@@ -9,3 +9,5 @@ for (let i = 1; i <= n; i++) {
   k += n - i;
 }
 console.log(`${k}\n2`);
+
+for (let i = 0; i < URL.children.length; i++) {}
