@@ -1,5 +1,4 @@
 function binarySearch(arr, target) {
-  arr.sort((a, b) => a - b);
   let mid;
   let left = 0;
   let right = arr.length - 1;
@@ -18,5 +17,5 @@ function binarySearch(arr, target) {
     }
   }
 
-  return mid + 1;
+  return mid;
 }
