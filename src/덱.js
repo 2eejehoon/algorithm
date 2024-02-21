@@ -1,7 +1,6 @@
 class Node {
-  constructor(value, index) {
-    this.value = value;
-    this.index = index;
+  constructor(data) {
+    this.data = data;
     this.prev = null;
     this.next = null;
   }
@@ -14,8 +13,8 @@ class Deque {
     this.length = 0;
   }
 
-  unshift(value, index) {
-    const node = new Node(value, index);
+  unshift(data) {
+    const node = new Node(data);
     if (this.length === 0) {
       this.head = node;
       this.tail = node;
@@ -28,8 +27,8 @@ class Deque {
     this.length++;
   }
 
-  push(value, index) {
-    const node = new Node(value, index);
+  push(data) {
+    const node = new Node(data);
     if (this.length === 0) {
       this.tail = node;
       this.head = node;
