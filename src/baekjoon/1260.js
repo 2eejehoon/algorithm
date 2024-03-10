@@ -10,6 +10,7 @@ arr.forEach(([a, b]) => {
   g[a][b] = 1;
   g[b][a] = 1;
 });
+
 const dfs = (v) => {
   dfsPath.push(v);
   for (let i = 0; i < g[v].length; i++) {
@@ -24,15 +25,15 @@ dfs(V);
 
 const bfsPath = [];
 const check2 = Array(N + 1).fill(false);
-const queue = [[V, `${V}`]];
+const queue = [V];
 check2[V] = true;
 while (queue.length > 0) {
-  const [current, path] = queue.shift();
+  const current = queue.shift();
   bfsPath.push(current);
   for (let i = 0; i < g[current].length; i++) {
     if (g[current][i] === 1 && !check2[i]) {
       check2[i] = true;
-      queue.push([i, path + `${i}`]);
+      queue.push(i);
     }
   }
 }
