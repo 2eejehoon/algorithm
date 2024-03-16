@@ -16,11 +16,9 @@ function solution(topping) {
     if (obj1[x] === 0) {
       len1--;
     }
-    if (x in obj2) {
-      obj2[x]++;
-    } else {
-      obj2[x] = 1;
+    if (!(x in obj2)) {
       len2++;
+      obj2[x] = true;
     }
 
     if (len1 === len2) {
