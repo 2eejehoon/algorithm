@@ -7,7 +7,7 @@ function solution(k, tangerine) {
       obj[x] = 1;
     }
   }
-  const arr = Object.entries(obj).map((v) => [v[0], v[1]]);
+  const arr = Object.entries(obj);
   arr.sort((a, b) => b[1] - a[1]);
   let answer = 0;
   let sum = 0;
