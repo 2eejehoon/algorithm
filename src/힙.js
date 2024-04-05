@@ -19,7 +19,7 @@ class MinHeap {
     }
     const item = this.heap[0];
     this.heap[0] = this.heap.pop();
-    this.heapifyDown();
+    this.heapifyUp();
     return item;
   }
 
@@ -56,6 +56,10 @@ class MinHeap {
       leftIndex = leftIndex = index * 2 + 1;
       rightIndex = index * 2 + 2;
     }
+  }
+
+  size() {
+    return this.heap.length;
   }
 }
 
